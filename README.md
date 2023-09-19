@@ -1,3 +1,13 @@
+
+To build the docker image (from the root of this repo):
+`docker build -t qutee_elites docker/.`
+
+To run the docker image:
+`docker run --ulimit nofile=500000:500000 -it --rm -v  $(pwd)/src/qutee_elites:/microros_ws/src/qutee_elites -v  $(pwd)/src/qutee_msg:/microros_ws/src/qutee_msg -v  --privileged --workdir /microros_ws qutee_elites /bin/bash`
+then do
+`colcon build` to build the two ros packages included in this repo (qutee_msg and qutee_elites). 
+
+
 # Python3 Map-Elites
 This repository contains "reference implementations" of:
 - CVT-MAP-Elites (Vassiliades, Chatzilygeroudis, Mouret, 2017)
