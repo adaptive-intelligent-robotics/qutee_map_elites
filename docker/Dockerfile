@@ -16,5 +16,7 @@ RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     rosdep install --from-paths src --ignore-src -y && \
     rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install  scikit-learn numpy
+
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && colcon build
 
