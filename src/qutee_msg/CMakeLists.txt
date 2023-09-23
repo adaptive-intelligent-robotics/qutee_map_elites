@@ -16,8 +16,8 @@ find_package(std_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/Rollout.srv"
-  "srv/GetNumParams.srv"
+  "msg/RolloutRes.msg"
+  "msg/Weights.msg"
   DEPENDENCIES builtin_interfaces std_msgs
 )
 

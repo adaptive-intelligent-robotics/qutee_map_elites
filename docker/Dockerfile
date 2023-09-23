@@ -18,5 +18,5 @@ RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
 
 RUN pip3 install  scikit-learn numpy
 
-RUN . /opt/ros/${ROS_DISTRO}/setup.sh && colcon build
+RUN . /opt/ros/${ROS_DISTRO}/setup.sh && colcon build && . install/local_setup.sh && ros2 run micro_ros_setup create_agent_ws.sh && ros2 run micro_ros_setup build_agent.sh
 
