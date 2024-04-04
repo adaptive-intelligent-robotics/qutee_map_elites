@@ -1,0 +1,3 @@
+[submodule "src/Qutee_interface"]
+	path = src/Qutee_interface
+	url = https://github.com/adaptive-intelligent-robotics/Qutee_interface.git
