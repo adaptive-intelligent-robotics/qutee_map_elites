@@ -37,9 +37,11 @@
 #| The fact that you are presently reading this means that you have
 #| had knowledge of the CeCILL license and that you accept its terms.
 
+import time
 import math
 import numpy as np
 import multiprocessing
+from multiprocessing import current_process
 
 # from scipy.spatial import cKDTree : TODO -- faster?
 from sklearn.neighbors import KDTree
@@ -70,22 +72,21 @@ def __evaluate(t):
     fit, desc = f(z)
     return cm.Species(z, desc, fit)
 
+
 # map-elites algorithm (CVT variant)
-def compute(dim_map, dim_x, f,
+def compute(dim_map, dim_x, f, pool,
             n_niches=1000,
-            max_evals=1e5,
+            max_evals=1e2,
             params=cm.default_params,
             log_file=None,
-            variation_operator=cm.variation):
+            variation_operator=cm.variation ):
     """CVT MAP-Elites
        Vassiliades V, Chatzilygeroudis K, Mouret JB. Using centroidal voronoi tessellations to scale up the multidimensional archive of phenotypic elites algorithm. IEEE Transactions on Evolutionary Computation. 2017 Aug 3;22(4):623-30.
 
        Format of the logfile: evals archive_size max mean median 5%_percentile, 95%_percentile
 
     """
-    # setup the parallel processing pool
-    num_cores = multiprocessing.cpu_count()
-    pool = multiprocessing.Pool(num_cores)
+
 
     # create the CVT
     c = cm.cvt(n_niches, dim_map,
