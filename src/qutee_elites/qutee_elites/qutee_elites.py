@@ -18,12 +18,12 @@ class QuteeClientAsync(Node):
     def __init__(self):
         super().__init__('qutee_client_async')
         # Setting up the Rollout Client
-        self.rollout_client = self.create_client(Rollout, 'rollout')
+        self.rollout_client = self.create_client(Rollout, '/rollout')
         while not self.rollout_client.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('Rollout service not available, waiting again...')
         self.rollout_req = Rollout.Request()
         # Setting up the GetNumParams Client
-        self.numparams_client = self.create_client(GetNumParams, 'getnumparams')
+        self.numparams_client = self.create_client(GetNumParams, '/get_num_params')
         while not self.numparams_client.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('GetNumParams service not available, waiting again...')
         self.numparams_req = GetNumParams.Request()
