@@ -203,10 +203,8 @@ def make_hashable(array):
 
 
 def parallel_eval(evaluate_function, to_evaluate, pool, params):
-    if params['parallel'] == True:
-        s_list = pool.map(evaluate_function, to_evaluate)
-    else:
-        s_list = map(evaluate_function, to_evaluate)
+    #print(to_evaluate)
+    s_list = pool.map(evaluate_function, to_evaluate)
     return list(s_list)
 
 # format: fitness, centroid, desc, genome \n
