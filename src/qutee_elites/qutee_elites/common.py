@@ -202,9 +202,9 @@ def make_hashable(array):
     return tuple(map(float, array))
 
 
-def parallel_eval(evaluate_function, to_evaluate, pool, params):
+def parallel_eval( to_evaluate, pool, params):
     #print(to_evaluate)
-    s_list = pool.map(evaluate_function, to_evaluate)
+    s_list = pool.map(to_evaluate)
     return list(s_list)
 
 # format: fitness, centroid, desc, genome \n

@@ -65,12 +65,6 @@ def __add_to_archive(s, centroid, archive, kdt):
         return 1
 
 
-# evaluate a single vector (x) with a function f and return a species
-# t = vector, function
-def __evaluate(t):
-    z, f = t  # evaluate z with function f
-    fit, desc = f(z)
-    return cm.Species(z, desc, fit)
 
 
 # map-elites algorithm (CVT variant)
@@ -104,7 +98,7 @@ def compute(dim_map, dim_x, f, pool,
         # random initialization
         if len(archive) <= params['random_init'] * n_niches:
             for i in range(0, params['random_init_batch']):
-                x = np.random.uniform(low=params['min'], high=params['max'], size=dim_x)
+                x = np.random.uniform(low=-params['init_range'], high=params['init_range'], size=dim_x)
                 to_evaluate += [(x, f)]
         else:  # variation/selection loop
             keys = list(archive.keys())
@@ -119,7 +113,7 @@ def compute(dim_map, dim_x, f, pool,
                 z = variation_operator(x.x, y.x, params)
                 to_evaluate += [(z, f)]
         # evaluation of the fitness for to_evaluate
-        s_list = cm.parallel_eval(__evaluate, to_evaluate, pool, params)
+        s_list = cm.parallel_eval(to_evaluate, pool, params)
         # natural selection
         for s in s_list:
             __add_to_archive(s, s.desc, archive, kdt)
